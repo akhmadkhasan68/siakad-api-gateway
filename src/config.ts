@@ -14,7 +14,6 @@ export const config = {
 
     nats: {
         authServiceUrl: process.env.NATS_AUTH_SERVICE_URL || 'nats://localhost:4222',
-        userServiceUrl: process.env.NATS_USER_SERVICE_URL || 'nats://localhost:4222',
     },
 
     jwt: {

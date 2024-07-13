@@ -3,6 +3,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { config } from './config';
 import { serviceClient } from './common/constants/service-client.constant';
+import { HealthModule } from './modules/health/health.module';
 
 @Global()
 @Module({
@@ -16,6 +17,7 @@ import { serviceClient } from './common/constants/service-client.constant';
         },
       },
     ]),
+    HealthModule,
     AuthModule, 
   ],
   providers: [],

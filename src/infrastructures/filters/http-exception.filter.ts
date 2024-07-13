@@ -14,8 +14,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
                 const exceptionResponse = exception.getResponse();
                 const data = exceptionResponse['data'] ?? null;
 
-                response.status(200).json(<IApiResponse<null>>{})
-
                 response.status(status).json(<IApiResponse<null>>{
                     code: status,
                     data: null,
