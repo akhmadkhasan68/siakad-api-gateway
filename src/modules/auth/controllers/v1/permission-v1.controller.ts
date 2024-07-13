@@ -8,6 +8,7 @@ import { PermissionV1Response } from "../../dto/responses/v1/permission-v1.respo
 import { PermissionGuard } from "src/infrastructures/guards/permission.guard";
 import { IPaginateResponse } from "src/common/interfaces/index.interface";
 import { PermissionPaginateV1Request } from "../../dto/requests/v1/permission-paginate-v1.request";
+import { PERMISSION } from "src/common/constants/permission.constant";
 
 @Controller({
     path: 'auth/permissions',
@@ -20,6 +21,7 @@ export class PermissionV1Controller {
     ) {}
 
     @Get()
+    @UseGuards(PermissionGuard(PERMISSION.AUTH_SERVICE.READ_PERMISSION))
     async index(
         @Query() query: PermissionPaginateV1Request,
     ): Promise<IPaginateResponse<PermissionV1Response>> {
@@ -35,7 +37,7 @@ export class PermissionV1Controller {
     }
 
     @Get('my-permissions')
-    @UseGuards(PermissionGuard('AUTH_SERVICE_CREATE_USER'))
+    @UseGuards(PermissionGuard(PERMISSION.AUTH_SERVICE.READ_PERMISSION))
     async myPermissions(
         @GetUserLogged() user: IUser,
     ): Promise<IApiResponse<PermissionV1Response[]>> {
