@@ -1,18 +1,18 @@
-import { Controller, Get, HttpStatus, Query, UseGuards } from "@nestjs/common";
-import { IApiResponse } from "src/common/interfaces/response.interface";
-import { GetUserLogged } from "src/infrastructures/decorators/get-user-logged.decorator";
-import { LoggedInGuard } from "src/infrastructures/guards/logged-in.guard";
-import { IUser } from "../../interfaces/user.interface";
-import { PermissionV1Application } from "../../applications/v1/permission-v1.application";
-import { PermissionV1Response } from "../../dto/responses/v1/permission-v1.response";
-import { PermissionGuard } from "src/infrastructures/guards/permission.guard";
-import { IPaginateResponse } from "src/common/interfaces/index.interface";
-import { PermissionPaginateV1Request } from "../../dto/requests/v1/permission-paginate-v1.request";
-import { PERMISSION } from "src/common/constants/permission.constant";
+import { Controller, Get, HttpStatus, Query, UseGuards } from '@nestjs/common';
+import { PERMISSION } from 'src/common/constants/permission.constant';
+import { IPaginateResponse } from 'src/common/interfaces/index.interface';
+import { IApiResponse } from 'src/common/interfaces/response.interface';
+import { GetUserLogged } from 'src/infrastructures/decorators/get-user-logged.decorator';
+import { LoggedInGuard } from 'src/infrastructures/guards/logged-in.guard';
+import { PermissionGuard } from 'src/infrastructures/guards/permission.guard';
+import { PermissionV1Application } from '../../applications/v1/permission-v1.application';
+import { PermissionPaginateV1Request } from '../../dto/requests/v1/permission-paginate-v1.request';
+import { PermissionV1Response } from '../../dto/responses/v1/permission-v1.response';
+import { IUser } from '../../interfaces/user.interface';
 
 @Controller({
     path: 'auth/permissions',
-    version: '1'
+    version: '1',
 })
 @UseGuards(LoggedInGuard)
 export class PermissionV1Controller {
@@ -25,10 +25,8 @@ export class PermissionV1Controller {
     async index(
         @Query() query: PermissionPaginateV1Request,
     ): Promise<IPaginateResponse<PermissionV1Response>> {
-        const {
-            data,
-            meta,
-        } = await this.permissionApplication.fetchPaginate(query);
+        const { data, meta } =
+            await this.permissionApplication.fetchPaginate(query);
 
         return {
             meta,
@@ -41,7 +39,8 @@ export class PermissionV1Controller {
     async myPermissions(
         @GetUserLogged() user: IUser,
     ): Promise<IApiResponse<PermissionV1Response[]>> {
-        const permissions = await this.permissionApplication.getPermissionsUserByRoleIds(user);
+        const permissions =
+            await this.permissionApplication.getPermissionsUserByRoleIds(user);
 
         return {
             code: HttpStatus.OK,
