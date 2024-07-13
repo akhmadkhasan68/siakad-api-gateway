@@ -1,5 +1,5 @@
 import { Controller, Get, HttpStatus, Query, UseGuards } from '@nestjs/common';
-import { PERMISSION } from 'src/common/constants/permission.constant';
+import { PermissionConstants } from 'src/common/constants/permission.constant';
 import { IPaginateResponse } from 'src/common/interfaces/index.interface';
 import { IApiResponse } from 'src/common/interfaces/response.interface';
 import { GetUserLogged } from 'src/infrastructures/decorators/get-user-logged.decorator';
@@ -21,7 +21,7 @@ export class PermissionV1Controller {
     ) {}
 
     @Get()
-    @UseGuards(PermissionGuard(PERMISSION.AUTH_SERVICE.READ_PERMISSION))
+    @UseGuards(PermissionGuard(PermissionConstants.AuthService.ReadPermission))
     async index(
         @Query() query: PermissionPaginateV1Request,
     ): Promise<IPaginateResponse<PermissionV1Response>> {
@@ -35,7 +35,7 @@ export class PermissionV1Controller {
     }
 
     @Get('my-permissions')
-    @UseGuards(PermissionGuard(PERMISSION.AUTH_SERVICE.READ_PERMISSION))
+    @UseGuards(PermissionGuard(PermissionConstants.AuthService.ReadPermission))
     async myPermissions(
         @GetUserLogged() user: IUser,
     ): Promise<IApiResponse<PermissionV1Response[]>> {
