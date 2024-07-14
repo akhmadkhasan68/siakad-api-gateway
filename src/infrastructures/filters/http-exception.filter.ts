@@ -1,6 +1,19 @@
-import { ArgumentsHost, BadRequestException, Catch, ExceptionFilter, ForbiddenException, HttpException, HttpStatus, InternalServerErrorException, NotFoundException, UnauthorizedException, UnprocessableEntityException } from "@nestjs/common";
-import { Response } from "express";
-import { IApiResponse } from "src/common/interfaces/response.interface";
+import {
+    ArgumentsHost,
+    BadRequestException,
+    Catch,
+    ExceptionFilter,
+    ForbiddenException,
+    HttpException,
+    HttpStatus,
+    InternalServerErrorException,
+    NotFoundException,
+    UnauthorizedException,
+    UnprocessableEntityException,
+} from '@nestjs/common';
+import { Response } from 'express';
+import { IApiResponse } from 'src/common/interfaces/response.interface';
+import { EntityNotFoundError } from 'typeorm';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -70,5 +83,21 @@ export class HttpExceptionFilter implements ExceptionFilter {
                 });
                 return;
         }
+    }
+}
+
+@Catch(EntityNotFoundError)
+export class EntityNotFoundExceptionFilter implements ExceptionFilter {
+    catch(exception: EntityNotFoundError, host: ArgumentsHost): void {
+        const ctx = host.switchToHttp();
+        const response = ctx.getResponse<Response>();
+        const status = 404;
+
+        response.status(status).json(<IApiResponse<null>>{
+            code: status,
+            data: null,
+            message: 'Data not found',
+            errors: null,
+        });
     }
 }

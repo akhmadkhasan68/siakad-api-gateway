@@ -1,4 +1,12 @@
-import { Controller, Get, HttpStatus, Query, UseGuards } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    HttpStatus,
+    Param,
+    ParseUUIDPipe,
+    Query,
+    UseGuards,
+} from '@nestjs/common';
 import { PermissionConstants } from 'src/common/constants/permission.constant';
 import { IPaginateResponse } from 'src/common/interfaces/index.interface';
 import { IApiResponse } from 'src/common/interfaces/response.interface';
@@ -31,6 +39,20 @@ export class PermissionV1Controller {
         return {
             meta,
             data: PermissionV1Response.toResponses(data),
+        };
+    }
+
+    @Get(':id')
+    @UseGuards(PermissionGuard(PermissionConstants.AuthService.ReadPermission))
+    async show(
+        @Param('id', new ParseUUIDPipe()) id: string,
+    ): Promise<IApiResponse<PermissionV1Response>> {
+        const permission = await this.permissionApplication.getDetail(id);
+
+        return {
+            code: HttpStatus.OK,
+            message: 'Get permission detail success',
+            data: PermissionV1Response.toResponse(permission),
         };
     }
 

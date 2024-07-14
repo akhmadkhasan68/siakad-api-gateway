@@ -8,6 +8,7 @@ export const ServiceNatsCommand = {
         },
         Permissions: {
             FetchPaginate: 'auth:permissions:fetchPaginate',
+            FindOneById: 'auth:permissions:findOneById',
             GetPermissionsByRoleIds: 'auth:permissions:GetPermissionsByRoleIds',
         },
         Roles: {

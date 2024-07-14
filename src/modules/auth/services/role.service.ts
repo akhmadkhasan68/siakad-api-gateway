@@ -26,7 +26,7 @@ export class RoleService {
 
             return response;
         } catch (error) {
-            throw new RpcException(error.response);
+            throw new RpcException(error);
         }
     }
 }

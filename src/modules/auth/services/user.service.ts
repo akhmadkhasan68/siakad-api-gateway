@@ -31,7 +31,7 @@ export class UserService {
 
             return await lastValueFrom(result);
         } catch (error) {
-            throw new RpcException(error.response);
+            throw new RpcException(error);
         }
     }
 
@@ -44,7 +44,7 @@ export class UserService {
 
             return await lastValueFrom(result);
         } catch (error) {
-            throw new RpcException(error.response);
+            throw new RpcException(error);
         }
     }
 
@@ -57,7 +57,7 @@ export class UserService {
 
             return await lastValueFrom(result);
         } catch (error) {
-            throw new RpcException(error.response);
+            throw new RpcException(error);
         }
     }
 }

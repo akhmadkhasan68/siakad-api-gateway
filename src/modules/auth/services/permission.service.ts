@@ -29,7 +29,20 @@ export class PermissionService {
 
             return response;
         } catch (error) {
-            throw new RpcException(error.response);
+            throw new RpcException(error);
+        }
+    }
+
+    async findOneById(id: string): Promise<IPermission> {
+        try {
+            const result = this.client.send<IPermission, string>(
+                ServiceNatsCommand.AuthService.Permissions.FindOneById,
+                id,
+            );
+
+            return await lastValueFrom(result);
+        } catch (error) {
+            throw new RpcException(error);
         }
     }
 
@@ -48,7 +61,7 @@ export class PermissionService {
 
             return await lastValueFrom(result);
         } catch (error) {
-            throw new RpcException(error.response);
+            throw new RpcException(error);
         }
     }
 }
