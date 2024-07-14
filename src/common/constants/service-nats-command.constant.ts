@@ -10,5 +10,8 @@ export const ServiceNatsCommand = {
             FetchPaginate: 'auth:permissions:fetchPaginate',
             GetPermissionsByRoleIds: 'auth:permissions:GetPermissionsByRoleIds',
         },
+        Roles: {
+            FetchPaginate: 'auth:roles:fetchPaginate',
+        },
     },
 };
