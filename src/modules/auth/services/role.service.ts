@@ -4,6 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { serviceClient } from 'src/common/constants/service-client.constant';
 import { ServiceNatsCommand } from 'src/common/constants/service-nats-command.constant';
 import { IPaginateResponse } from 'src/common/interfaces/index.interface';
+import { CreateRoleV1Request } from '../dto/requests/v1/create-role-v1.request';
 import { RolePaginateV1Request } from '../dto/requests/v1/role-paginate-v1.request';
 import { IRole } from '../interfaces/role.interface';
 
@@ -35,6 +36,19 @@ export class RoleService {
             const result = this.client.send<IRole, string>(
                 ServiceNatsCommand.AuthService.Roles.FindOneById,
                 id,
+            );
+
+            return await lastValueFrom(result);
+        } catch (error) {
+            throw new RpcException(error);
+        }
+    }
+
+    async create(payload: CreateRoleV1Request): Promise<IRole> {
+        try {
+            const result = this.client.send<IRole, CreateRoleV1Request>(
+                ServiceNatsCommand.AuthService.Roles.Create,
+                payload,
             );
 
             return await lastValueFrom(result);
