@@ -27,4 +27,8 @@ export class RoleV1Application {
     async create(payload: CreateRoleV1Request): Promise<IRole> {
         return await this.roleService.create(payload);
     }
+
+    async update(id: string, payload: CreateRoleV1Request): Promise<IRole> {
+        return await this.roleService.update(id, payload);
+    }
 }

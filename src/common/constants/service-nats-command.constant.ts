@@ -15,6 +15,7 @@ export const ServiceNatsCommand = {
             FetchPaginate: 'auth:roles:fetchPaginate',
             FindOneById: 'auth:roles:findOneById',
             Create: 'auth:roles:create',
+            Update: 'auth:roles:update',
         },
     },
 };

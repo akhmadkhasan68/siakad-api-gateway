@@ -56,4 +56,17 @@ export class RoleService {
             throw new RpcException(error);
         }
     }
+
+    async update(id: string, payload: CreateRoleV1Request): Promise<IRole> {
+        try {
+            const result = this.client.send<IRole, any>(
+                ServiceNatsCommand.AuthService.Roles.Update,
+                { id, ...payload },
+            );
+
+            return await lastValueFrom(result);
+        } catch (error) {
+            throw new RpcException(error);
+        }
+    }
 }

@@ -7,6 +7,7 @@ import {
     Param,
     ParseUUIDPipe,
     Post,
+    Put,
     Query,
     UseGuards,
 } from '@nestjs/common';
@@ -82,6 +83,21 @@ export class RoleV1Controller {
         return {
             code: HttpStatus.CREATED,
             message: 'Create role success',
+            data: RoleV1Response.toResponse(role),
+        };
+    }
+
+    @Put(':id')
+    @UseGuards(PermissionGuard(PermissionConstants.AuthService.UpdateRole))
+    async update(
+        @Param('id', new ParseUUIDPipe()) id: string,
+        @Body() body: CreateRoleV1Request,
+    ): Promise<IApiResponse<RoleV1Response>> {
+        const role = await this.roleApplication.update(id, body);
+
+        return {
+            code: HttpStatus.OK,
+            message: 'Update role success',
             data: RoleV1Response.toResponse(role),
         };
     }
