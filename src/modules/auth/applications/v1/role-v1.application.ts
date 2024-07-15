@@ -18,4 +18,8 @@ export class RoleV1Application {
             meta,
         };
     }
+
+    async getDetail(id: string): Promise<IRole> {
+        return await this.roleService.findOneById(id);
+    }
 }

@@ -29,4 +29,17 @@ export class RoleService {
             throw new RpcException(error);
         }
     }
+
+    async findOneById(id: string): Promise<IRole> {
+        try {
+            const result = this.client.send<IRole, string>(
+                ServiceNatsCommand.AuthService.Roles.FindOneById,
+                id,
+            );
+
+            return await lastValueFrom(result);
+        } catch (error) {
+            throw new RpcException(error);
+        }
+    }
 }

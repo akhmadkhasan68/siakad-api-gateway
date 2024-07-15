@@ -13,6 +13,7 @@ export const ServiceNatsCommand = {
         },
         Roles: {
             FetchPaginate: 'auth:roles:fetchPaginate',
+            FindOneById: 'auth:roles:findOneById',
         },
     },
 };
