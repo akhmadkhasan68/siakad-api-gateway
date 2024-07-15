@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     HttpCode,
     HttpStatus,
@@ -99,6 +100,20 @@ export class RoleV1Controller {
             code: HttpStatus.OK,
             message: 'Update role success',
             data: RoleV1Response.toResponse(role),
+        };
+    }
+
+    @Delete(':id')
+    @UseGuards(PermissionGuard(PermissionConstants.AuthService.DeleteRole))
+    async delete(
+        @Param('id', new ParseUUIDPipe()) id: string,
+    ): Promise<IApiResponse<boolean>> {
+        const role = await this.roleApplication.delete(id);
+
+        return {
+            code: HttpStatus.OK,
+            message: 'Delete role success',
+            data: role,
         };
     }
 }

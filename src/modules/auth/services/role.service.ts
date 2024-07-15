@@ -69,4 +69,17 @@ export class RoleService {
             throw new RpcException(error);
         }
     }
+
+    async delete(id: string): Promise<boolean> {
+        try {
+            const result = this.client.send<boolean, string>(
+                ServiceNatsCommand.AuthService.Roles.Delete,
+                id,
+            );
+
+            return await lastValueFrom(result);
+        } catch (error) {
+            throw new RpcException(error);
+        }
+    }
 }

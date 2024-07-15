@@ -31,4 +31,8 @@ export class RoleV1Application {
     async update(id: string, payload: CreateRoleV1Request): Promise<IRole> {
         return await this.roleService.update(id, payload);
     }
+
+    async delete(id: string): Promise<boolean> {
+        return await this.roleService.delete(id);
+    }
 }

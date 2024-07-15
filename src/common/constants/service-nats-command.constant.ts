@@ -16,6 +16,7 @@ export const ServiceNatsCommand = {
             FindOneById: 'auth:roles:findOneById',
             Create: 'auth:roles:create',
             Update: 'auth:roles:update',
+            Delete: 'auth:roles:delete',
         },
     },
 };
