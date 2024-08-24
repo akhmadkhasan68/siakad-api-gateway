@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { serviceClient } from 'src/common/constants/service-client.constant';
-import { ServiceNatsCommand } from 'src/common/constants/service-nats-command.constant';
+import { ServiceCommands } from 'src/common/constants/service-command.constant';
+import { ServiceClientEnum } from 'src/common/enums/service-client.enum';
 import { IPaginateResponse } from 'src/common/interfaces/index.interface';
 import { CreateRoleV1Request } from '../dto/requests/v1/create-role-v1.request';
 import { RolePaginateV1Request } from '../dto/requests/v1/role-paginate-v1.request';
@@ -11,7 +11,7 @@ import { IRole } from '../interfaces/role.interface';
 @Injectable()
 export class RoleService {
     constructor(
-        @Inject(serviceClient.AuthService)
+        @Inject(ServiceClientEnum.AuthService)
         private client: ClientProxy,
     ) {}
 
@@ -22,7 +22,7 @@ export class RoleService {
             const result = this.client.send<
                 IPaginateResponse<IRole>,
                 RolePaginateV1Request
-            >(ServiceNatsCommand.AuthService.Roles.FetchPaginate, payload);
+            >(ServiceCommands.AuthService.V1.Roles.FetchPaginate, payload);
             const response = await lastValueFrom(result);
 
             return response;
@@ -34,7 +34,7 @@ export class RoleService {
     async findOneById(id: string): Promise<IRole> {
         try {
             const result = this.client.send<IRole, string>(
-                ServiceNatsCommand.AuthService.Roles.FindOneById,
+                ServiceCommands.AuthService.V1.Roles.FindOneById,
                 id,
             );
 
@@ -47,7 +47,7 @@ export class RoleService {
     async create(payload: CreateRoleV1Request): Promise<IRole> {
         try {
             const result = this.client.send<IRole, CreateRoleV1Request>(
-                ServiceNatsCommand.AuthService.Roles.Create,
+                ServiceCommands.AuthService.V1.Roles.Create,
                 payload,
             );
 
@@ -60,7 +60,7 @@ export class RoleService {
     async update(id: string, payload: CreateRoleV1Request): Promise<IRole> {
         try {
             const result = this.client.send<IRole, any>(
-                ServiceNatsCommand.AuthService.Roles.Update,
+                ServiceCommands.AuthService.V1.Roles.Update,
                 { id, ...payload },
             );
 
@@ -73,7 +73,7 @@ export class RoleService {
     async delete(id: string): Promise<boolean> {
         try {
             const result = this.client.send<boolean, string>(
-                ServiceNatsCommand.AuthService.Roles.Delete,
+                ServiceCommands.AuthService.V1.Roles.Delete,
                 id,
             );
 

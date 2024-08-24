@@ -5,7 +5,7 @@ import {
     HealthCheckService,
     MicroserviceHealthIndicator,
 } from '@nestjs/terminus';
-import { serviceClient } from 'src/common/constants/service-client.constant';
+import { ServiceClientEnum } from 'src/common/enums/service-client.enum';
 import { config } from 'src/config';
 
 @Controller({
@@ -24,7 +24,7 @@ export class HealthController {
         return this.healthCheckService.check([
             () =>
                 this.microserviceHealthCheckService.pingCheck(
-                    serviceClient.AuthService,
+                    ServiceClientEnum.AuthService,
                     {
                         transport: Transport.NATS,
                         options: {

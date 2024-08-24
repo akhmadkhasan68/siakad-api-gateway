@@ -1,14 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { serviceClient } from 'src/common/constants/service-client.constant';
-import { ServiceNatsCommand } from 'src/common/constants/service-nats-command.constant';
+import { ServiceCommands } from 'src/common/constants/service-command.constant';
+import { ServiceClientEnum } from 'src/common/enums/service-client.enum';
 import { IUser } from '../interfaces/user.interface';
 
 @Injectable()
 export class UserService {
     constructor(
-        @Inject(serviceClient.AuthService)
+        @Inject(ServiceClientEnum.AuthService)
         private client: ClientProxy,
     ) {}
 
@@ -21,7 +21,7 @@ export class UserService {
                 IUser,
                 { email: string; password: string }
             >(
-                ServiceNatsCommand.AuthService.Login
+                ServiceCommands.AuthService.V1.Login
                     .VerifyUserByEmailAndPassword,
                 {
                     email,
@@ -38,7 +38,7 @@ export class UserService {
     async findById(id: string): Promise<IUser> {
         try {
             const result = this.client.send<IUser, string>(
-                ServiceNatsCommand.AuthService.Login.GetUserById,
+                ServiceCommands.AuthService.V1.Login.GetUserById,
                 id,
             );
 
@@ -51,7 +51,7 @@ export class UserService {
     async findByEmail(email: string): Promise<IUser> {
         try {
             const result = this.client.send<IUser, string>(
-                ServiceNatsCommand.AuthService.Login.GetUserByEmail,
+                ServiceCommands.AuthService.V1.Login.GetUserByEmail,
                 email,
             );
 

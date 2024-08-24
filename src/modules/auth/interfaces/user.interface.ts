@@ -1,5 +1,5 @@
-import { IBaseEntity } from "src/common/interfaces/base-entity.interface";
-import { IRole } from "./role.interface";
+import { IBaseEntity } from 'src/common/interfaces/base-entity.interface';
+import { IRole } from './role.interface';
 
 export interface IUser extends IBaseEntity {
     firstName: string;

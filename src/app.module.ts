@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { serviceClient } from './common/constants/service-client.constant';
+import { ServiceClientEnum } from './common/enums/service-client.enum';
 import { config } from './config';
 import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
@@ -10,7 +10,7 @@ import { HealthModule } from './modules/health/health.module';
     imports: [
         ClientsModule.register([
             {
-                name: serviceClient.AuthService,
+                name: ServiceClientEnum.AuthService,
                 transport: Transport.NATS,
                 options: {
                     url: config.nats.authServiceUrl,

@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { serviceClient } from 'src/common/constants/service-client.constant';
-import { ServiceNatsCommand } from 'src/common/constants/service-nats-command.constant';
+import { ServiceCommands } from 'src/common/constants/service-command.constant';
+import { ServiceClientEnum } from 'src/common/enums/service-client.enum';
 import { IPaginateResponse } from 'src/common/interfaces/index.interface';
 import { PermissionPaginateV1Request } from '../dto/requests/v1/permission-paginate-v1.request';
 import { IPermission } from '../interfaces/permission.interface';
@@ -10,7 +10,7 @@ import { IPermission } from '../interfaces/permission.interface';
 @Injectable()
 export class PermissionService {
     constructor(
-        @Inject(serviceClient.AuthService)
+        @Inject(ServiceClientEnum.AuthService)
         private client: ClientProxy,
     ) {}
 
@@ -22,7 +22,7 @@ export class PermissionService {
                 IPaginateResponse<IPermission>,
                 PermissionPaginateV1Request
             >(
-                ServiceNatsCommand.AuthService.Permissions.FetchPaginate,
+                ServiceCommands.AuthService.V1.Permissions.FetchPaginate,
                 payload,
             );
             const response = await lastValueFrom(result);
@@ -36,7 +36,7 @@ export class PermissionService {
     async findOneById(id: string): Promise<IPermission> {
         try {
             const result = this.client.send<IPermission, string>(
-                ServiceNatsCommand.AuthService.Permissions.FindOneById,
+                ServiceCommands.AuthService.V1.Permissions.FindOneById,
                 id,
             );
 
@@ -52,7 +52,7 @@ export class PermissionService {
                 IPermission[],
                 { roleIds: string[] }
             >(
-                ServiceNatsCommand.AuthService.Permissions
+                ServiceCommands.AuthService.V1.Permissions
                     .GetPermissionsByRoleIds,
                 {
                     roleIds,
