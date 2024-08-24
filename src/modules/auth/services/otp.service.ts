@@ -12,9 +12,6 @@ export class OtpService {
         private client: ClientProxy,
     ) {}
 
-    // RequestOtp: 'auth:otp:requestOtp',
-    // VerifyOtp: 'auth:otp:verifyOtp',
-
     async requestOtp(email: string): Promise<IOtp> {
         try {
             const result = this.client.send<
