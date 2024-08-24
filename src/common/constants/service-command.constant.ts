@@ -26,4 +26,17 @@ export const ServiceCommands = {
             },
         },
     },
+    NotificationService: {
+        V1: {
+            Email: {
+                SendEmail: 'notification.v1.email.sendEmail',
+                SendBulkEmail: 'notification.v1.email.sendBulkEmail',
+                SendEmailOTP: 'notification.v1.email.sendEmailOTP',
+            },
+            InApp: {
+                FetchPaginate: 'notification.v1.inApp.fetchPaginate',
+                FindOneById: 'notification.v1.inApp.findOneById',
+            },
+        },
+    },
 };
