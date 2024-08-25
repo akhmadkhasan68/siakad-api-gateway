@@ -3,13 +3,16 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { config } from 'src/config';
 import { AuthV1Application } from './applications/v1/auth-v1.application';
+import { ForgotPasswordV1Application } from './applications/v1/forgot-password-v1.application';
 import { OtpV1Application } from './applications/v1/otp-v1.application';
 import { PermissionV1Application } from './applications/v1/permission-v1.application';
 import { RoleV1Application } from './applications/v1/role-v1.application';
 import { AuthV1Controller } from './controllers/v1/auth-v1.controller';
+import { ForgotPasswordV1Controller } from './controllers/v1/forgot-password-v1.controller';
 import { OtpV1Controller } from './controllers/v1/otp-v1.controller';
 import { PermissionV1Controller } from './controllers/v1/permission-v1.controller';
 import { RoleV1Controller } from './controllers/v1/role-v1.controller';
+import { ForgotPasswordService } from './services/forgot-password.service';
 import { JwtStrategy } from './services/jwt.strategy';
 import { OtpService } from './services/otp.service';
 import { PermissionService } from './services/permission.service';
@@ -30,6 +33,7 @@ import { UserService } from './services/user.service';
         PermissionV1Controller,
         RoleV1Controller,
         OtpV1Controller,
+        ForgotPasswordV1Controller,
     ],
     providers: [
         JwtStrategy,
@@ -39,12 +43,14 @@ import { UserService } from './services/user.service';
         PermissionV1Application,
         RoleV1Application,
         OtpV1Application,
+        ForgotPasswordV1Application,
 
         // Services
         UserService,
         PermissionService,
         RoleService,
         OtpService,
+        ForgotPasswordService,
     ],
     exports: [
         JwtModule,

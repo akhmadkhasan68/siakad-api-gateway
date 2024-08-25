@@ -24,6 +24,13 @@ export const ServiceCommands = {
                 RequestOtp: 'auth.v1.otp.requestOtp',
                 VerifyOtp: 'auth.v1.otp.verifyOtp',
             },
+            ForgotPassword: {
+                RequestForgotPassword:
+                    'auth.v1.forgotPassword.requestForgotPassword',
+                VerifyForgotPassword:
+                    'auth.v1.forgotPassword.verifyForgotPassword',
+                ResetPassword: 'auth.v1.forgotPassword.resetPassword',
+            },
         },
     },
     NotificationService: {
