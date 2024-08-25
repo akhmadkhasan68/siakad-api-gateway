@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
-import { UserService } from "../../services/user.service";
-import { LoginV1Request } from "../../dto/requests/v1/login-v1.request";
-import { JwtService } from "@nestjs/jwt";
-import { IUser } from "../../interfaces/user.interface";
-import { IJwtPayload } from "src/common/interfaces/jwt-payload.interface";
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { IJwtPayload } from 'src/common/interfaces/jwt-payload.interface';
+import { LoginV1Request } from '../../dto/requests/v1/login-v1.request';
+import { IUser } from '../../interfaces/user.interface';
+import { UserService } from '../../services/user.service';
 
 @Injectable()
 export class AuthV1Application {
@@ -13,8 +13,8 @@ export class AuthV1Application {
     ) {}
 
     async login(data: LoginV1Request): Promise<{
-        user: IUser,
-        token: string,
+        user: IUser;
+        token: string;
     }> {
         const user = await this.userService.verifyUserbyEmailAndPassword(
             data.email,

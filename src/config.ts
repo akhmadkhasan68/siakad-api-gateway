@@ -13,14 +13,18 @@ export const config = {
     },
 
     nats: {
-        authServiceUrl: process.env.NATS_AUTH_SERVICE_URL || 'nats://localhost:4222',
+        authServiceUrl:
+            process.env.NATS_AUTH_SERVICE_URL || 'nats://localhost:4222',
     },
 
     jwt: {
         secret: process.env.JWT_SECRET || 'secret',
         expiresInMilisecond: +process.env.JWT_EXPIRES_IN_MILISECOND || 3600000,
+        refreshSecret: process.env.JWT_REFRESH_SECRET || 'refresh_secret',
+        refreshExpiresInMilisecond:
+            +process.env.JWT_REFRESH_EXPIRES_IN_MILISECOND || 86400000,
     },
 
     timezone: process.env.TZ || 'UTC',
     dateFormat: process.env.DATE_FORMAT || 'YYYY-MM-DD HH:mm:ss',
-}
+};
